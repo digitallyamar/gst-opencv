@@ -25,12 +25,15 @@ if not out:
 
 while True:
     ret, frame = cap.read()
-    #
     if ret == False:
         break
 
-    out.write(frame)
+    # Add text overlay on each frame
+    ov_txt_frame = cv2.putText(frame, 'Press Q to exit!', (100, 350),
+                cv2.FONT_HERSHEY_SIMPLEX, 2 , (128, 0, 255), 2)
+
+    out.write(ov_txt_frame)
     if show:
-        cv2.imshow("webcam_stream", frame)
+        cv2.imshow("gst_cv2_webcam_stream", ov_txt_frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
